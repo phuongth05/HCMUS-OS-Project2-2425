@@ -84,6 +84,11 @@ testcall() {
     exit(1);
   }
 
+  // In các giá trị từ sysinfo
+  printf("Free memory: %ld bytes\n", info.freemem);
+  printf("Number of active processes: %ld\n", info.nproc);
+  printf("Load average: %ld\n", info.loadavg);
+
   if (sysinfo((struct sysinfo *) 0xeaeb0b5b00002f5e) !=  0xffffffffffffffff) {
     printf("FAIL: sysinfo succeeded with bad argument\n");
     exit(1);

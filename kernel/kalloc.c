@@ -91,3 +91,19 @@ kalloc(void)
   return (void*)r;
 }
 
+uint64
+freemem(void)
+{
+  uint64 bytes = 0;
+  struct run *r;
+
+  acquire(&kmem.lock);
+  r = kmem.freelist;
+  while (r) {
+    bytes += PGSIZE;  // Mỗi khối tự do là 4096 bytes
+    r = r->next;
+  }
+  release(&kmem.lock);
+  return bytes;
+}
+
